@@ -71,7 +71,7 @@ app.use(cors({
         // In development, allow all if origins match localhost pattern or are null
         const isLocal = !origin || origin === 'null' || origin.includes('localhost') || origin.includes('127.0.0.1');
         
-        if (isLocal || DOMAIN_ALLOWLIST.includes(origin)) {
+        if (isLocal || DOMAIN_ALLOWLIST.some(domain => origin && origin.startsWith(domain))) {
             callback(null, true);
         } else {
             console.warn(`[CORS Blocked] Origin: ${origin}`);
