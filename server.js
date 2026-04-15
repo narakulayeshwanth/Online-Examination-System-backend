@@ -64,14 +64,7 @@ const DOMAIN_ALLOWLIST = (process.env.CORS_ALLOWLIST
     ? process.env.CORS_ALLOWLIST.split(',') 
     : ['http://localhost:5000', 'http://localhost:3000', 'http://127.0.0.1:5500']).map(d => d.trim());
 
-app.use(cors({
-  origin: [
-    "https://narakulayeshwanth.github.io"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
-app.options("/", cors());
+app.use(cors());
 
 // Utility Middleware
 app.use(morgan('dev')); 
