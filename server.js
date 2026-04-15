@@ -43,7 +43,7 @@ app.use(helmet({
         directives: {
             defaultSrc: ["'self'"],
             scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://cdn.tailwindcss.com"],
-            connectSrc: ["'self'", "ws:", "wss:", "https://*.supabase.co", "https://cdn.jsdelivr.net"],
+            connectSrc: ["'self'", "ws:", "wss:", "https://*.supabase.co", "https://cdn.jsdelivr.net","https://online-examination-system-backend-1.onrender.com"],
             imgSrc: ["'self'", "data:", "https://*.supabase.co", "https://*"],
             styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
             fontSrc: ["'self'", "https://fonts.gstatic.com"],
@@ -102,18 +102,9 @@ app.use(errorHandler);
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: (origin, callback) => {
-            // Allow all origins in development or if they match localhost pattern
-            const isLocal = !origin || origin === 'null' || origin.includes('localhost') || origin.includes('127.0.0.1');
-            if (isLocal || (DOMAIN_ALLOWLIST && DOMAIN_ALLOWLIST.includes(origin))) {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-        methods: ["GET", "POST"],
-        credentials: true
-    }
+    origin: "*",
+    methods: ["GET", "POST"],
+}
 });
 
 console.log('Socket.io server initialized');
