@@ -64,25 +64,14 @@ const DOMAIN_ALLOWLIST = (process.env.CORS_ALLOWLIST
     ? process.env.CORS_ALLOWLIST.split(',') 
     : ['http://localhost:5000', 'http://localhost:3000', 'http://127.0.0.1:5500']).map(d => d.trim());
 
-console.log('CORS Domain Allowlist:', DOMAIN_ALLOWLIST);
-
 app.use(cors({
-    origin: function (origin, callback) {
-        // In development, allow all if origins match localhost pattern or are null
-        const isLocal = !origin || origin === 'null' || origin.includes('localhost') || origin.includes('127.0.0.1');
-        
-        if (isLocal || DOMAIN_ALLOWLIST.some(domain => origin && origin.startsWith(domain))) {
-            callback(null, true);
-        } else {
-            console.warn(`[CORS Blocked] Origin: ${origin}`);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-    credentials: true,
+  origin: [
+    "https://narakulayeshwanth.github.io"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
-
+app.options("*", cors());
 
 // Utility Middleware
 app.use(morgan('dev')); 
