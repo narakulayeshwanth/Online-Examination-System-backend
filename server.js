@@ -71,7 +71,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
-app.options("*", cors());
+app.options("/", cors());
 
 // Utility Middleware
 app.use(morgan('dev')); 
